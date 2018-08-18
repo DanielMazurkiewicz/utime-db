@@ -1,0 +1,24 @@
+{
+  "name": "utime-db",
+  "version": "1.0.0",
+  "description": "Generate databases for timezones",
+  "main": "utime-generateDb.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "time",
+    "moment",
+    "utime",
+    "timezone",
+    "gmt",
+    "utc",
+    "local",
+    "localization"
+  ],
+  "author": "Daniel Mazurkiewicz",
+  "license": "MIT",
+  "dependencies": {
+    "time": "^0.12.0"
+  }
+}
