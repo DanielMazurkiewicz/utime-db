@@ -67,15 +67,40 @@ function getTimeZoneDb(timeZone, scanFunction, endYear = 2100, endMonth = 1, end
   return result;
 }
 
+function getMinifiedZoneDb(zoneDb, divider = 3600000) {
+  var merged = [].concat.apply([], zoneDb);
+  var result = [];
+  if (merged.length) {
+    var current, previous = merged[0] / divider;
+    result.push(previous);
+    for (var i = 1; i < merged.length; i++) {
+      current = merged[i] / divider;
+      result.push(current - previous);
+      previous = current;
+    }
+    result.push(divider);
+  }
+  return result;
+}
+
 
 for (let zone in zones) {
   let timeZone = zones[zone];
   console.log(`Db for: ${zone} (${timeZone})`);
   let zoneDb = getTimeZoneDb(timeZone, scan);
-  fs.writeFile(`./country/${zone}.json`, JSON.stringify(zoneDb), function(err) {
+  let zoneDbMinified = getMinifiedZoneDb(zoneDb);
+
+  fs.writeFile(`./byCountryCode/${zone}.json`, JSON.stringify(zoneDb), function(err) {
     if(err) {
       return console.log(err);
     }
   }); 
+  fs.writeFile(`./byCountryCode-minified/${zone}.json`, JSON.stringify(zoneDbMinified), function(err) {
+    if(err) {
+      return console.log(err);
+    }
+  });
+
+
 }
 
